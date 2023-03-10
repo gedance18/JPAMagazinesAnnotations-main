@@ -53,7 +53,7 @@ public class ArticleController {
    *                     llistaRevistes
    *                     .getRevista(i).getArticle(j).getAutor()<>nil</br>
    */
-  public List<Magazine> readArticlesFile(String articlesFile, String magazinesFile, String authorsFile) //complicao no mirarlo
+  public List<Magazine> readArticlesFile(String articlesFile, String magazinesFile, String authorsFile)
       throws IOException {
     int articleId, magazineId, authorId;
     String title;
@@ -91,7 +91,7 @@ public class ArticleController {
     return magazinesList;
   }
 
-  public List<Article>  readArticlesFile(String articlesFile, String authorsFile) throws IOException {
+  public List<Article> readArticlesFile(String articlesFile, String authorsFile) throws IOException {
     int articleId, magazineId, authorId;
     String title;
     Date creationDate;

@@ -3,9 +3,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.ArticleController;
-import controller.AuthorController;
-import controller.MagazineController;
+import controller.*;
 import database.ConnectionFactory;
 import model.*;
 import org.hibernate.HibernateException;
@@ -59,9 +57,9 @@ public class Main {
     EntityManagerFactory entityManagerFactory = createEntityManagerFactory();
 
 
-    AuthorController authorController = new AuthorController(c, entityManagerFactory);
-    ArticleController articleController = new ArticleController(c, entityManagerFactory);
-    MagazineController magazineController = new MagazineController(c, entityManagerFactory);
+    PokemonController pokemonController = new PokemonController(c, entityManagerFactory);
+    TipoController tipoController = new TipoController(c, entityManagerFactory);
+    MovimientosController movimientosController = new MovimientosController(c,entityManagerFactory);
 
     Menu menu = new Menu();
     int opcio;
