@@ -112,4 +112,15 @@ public class TipoController {
         entityManager.close();
         entityManagerFactory.close();
     }
+
+    public void createTipo(int id_tipo, String nombre) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Tipo tipo = new Tipo();
+        tipo.setId_tipo(id_tipo);
+        tipo.setNombre(nombre);
+        em.persist(tipo);
+        em.getTransaction().commit();
+        em.close();
+    }
 }

@@ -119,6 +119,62 @@ public class Main {
           break;
 
         case 8:
+          System.out.println("Para crear un pokemon manualmente elige sus atributos:");
+          System.out.println("Id del pokemon:");
+          int id_pokemon = scanner.nextInt();
+          scanner.nextLine();
+          System.out.println("Id del movimiento");
+          int id_movimiento = scanner.nextInt();
+          scanner.nextLine();
+          System.out.println("Id del tipo");
+          int id_tipo = scanner.nextInt();
+          scanner.nextLine();
+          System.out.println("Nombre:");
+          String nombre = scanner.nextLine();
+          System.out.println("Categoria:");
+          String categoria = scanner.nextLine();
+          System.out.println("Habilidad:");
+          String habilidad = scanner.nextLine();
+          System.out.println("Peso:");
+          String peso = scanner.nextLine();
+          System.out.println("Altura:");
+          String altura = scanner.nextLine();
+          System.out.println("Generacion:");
+          String generacion = scanner.nextLine();
+          System.out.println("Evoluciones:");
+          String evoluciones = scanner.nextLine();
+
+          pokemonController.createPokemon(id_pokemon, id_movimiento, id_tipo, nombre, categoria,
+                  habilidad, peso, altura, generacion, evoluciones);
+          break;
+
+        case 9:
+          System.out.println("Para crear un tipo manualmente elige sus atributos:");
+          System.out.println("Id_tipo:");
+          int tipo_id = scanner.nextInt();
+          scanner.nextLine();
+          System.out.println("Nombre:");
+          String nombre_tipo = scanner.nextLine();
+          tipoController.createTipo(tipo_id, nombre_tipo);
+          break;
+
+        case 10:
+          System.out.println("Para crear un movimiento manualmente elige sus atributos:");
+          System.out.println("Id_movimiento:");
+          int movimiento_id = scanner.nextInt();
+          scanner.nextLine();
+          System.out.println("Nivel:");
+          String nivel = scanner.nextLine();
+          System.out.println("Nombre:");
+          String nombre_movimiento = scanner.nextLine();
+          System.out.println("Tipo:");
+          String tipo = scanner.nextLine();
+          System.out.println("Clase:");
+          String clase= scanner.nextLine();
+
+          movimientosController.createMovimiento(movimiento_id, nivel, nombre_movimiento, tipo, clase);
+
+        case 11:
           try{
             pokemonController.dropTablePokemon();
             tipoController.dropTableTipo();

@@ -165,4 +165,24 @@ public class PokemonController {
         entityManager.close();
         entityManagerFactory.close();
     }
+
+    public void createPokemon(int id_pokemon, int id_movimientos, int id_tipo, String nombre, String categoria,
+                              String habilidad, String peso, String altura, String generacion, String evoluciones) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Pokemon pokemon = new Pokemon();
+        pokemon.setId_pokemon(id_pokemon);
+        pokemon.setId_movimientos(id_movimientos);
+        pokemon.setId_tipo(id_tipo);
+        pokemon.setNombre(nombre);
+        pokemon.setCategoria(categoria);
+        pokemon.setHabilidad(habilidad);
+        pokemon.setPeso(peso);
+        pokemon.setAltura(altura);
+        pokemon.setGeneracion(generacion);
+        pokemon.setEvoluciones(evoluciones);
+        em.persist(pokemon);
+        em.getTransaction().commit();
+        em.close();
+    }
 }

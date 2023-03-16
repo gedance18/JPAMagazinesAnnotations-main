@@ -25,7 +25,10 @@ public class Menu {
             System.out.println("5. Listar la tabla Movimientos");
             System.out.println("6. Listar el nombre de los pokemons por el nombre");
             System.out.println("7. Buscar un movimiento y mostrarlo");
-            System.out.println("8. Borrar tablas");
+            System.out.println("8. Crear un pokemon");
+            System.out.println("9. Crear un tipo");
+            System.out.println("10. Crear un movimiento");
+            System.out.println("11. Borrar tablas");
             System.out.println("0. Salir del programa");
             System.out.println("Escoge una opcion: ");
             try {

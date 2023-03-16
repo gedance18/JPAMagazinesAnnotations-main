@@ -136,4 +136,20 @@ public class MovimientosController {
         entityManager.close();
         entityManagerFactory.close();
     }
+
+    public void createMovimiento(int id_pokemon_movimientos, String nivel,
+                                 String nombre_movimiento, String tipo_movimiento,
+                                 String clase) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Movimientos movimiento = new Movimientos();
+        movimiento.setId_pokemon_movimiento(id_pokemon_movimientos);
+        movimiento.setNivel(nivel);
+        movimiento.setNombre_movimiento(nombre_movimiento);
+        movimiento.setTipo_movimiento(tipo_movimiento);
+        movimiento.setClase(clase);
+        em.persist(movimiento);
+        em.getTransaction().commit();
+        em.close();
+    }
 }
