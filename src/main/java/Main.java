@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 import controller.*;
 import database.ConnectionFactory;
@@ -48,9 +50,9 @@ public class Main {
     return emf;
   }
 
-  public static void main(String[] args) {
-    ArrayList<Magazine> revistes = new ArrayList();
-
+  public static void main(String[] args) throws IOException {
+    boolean salirMenu = false;
+    Scanner scanner = new Scanner(System.in);
     ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
     Connection c = connectionFactory.connect();
 
@@ -63,51 +65,73 @@ public class Main {
 
     Menu menu = new Menu();
     int opcio;
-    opcio = menu.mainMenu();
 
-    switch (opcio) {
+    while(!salirMenu){
+      opcio = menu.mainMenu();
+      switch (opcio) {
 
-      case 1:
+        case 1:
+          tipoController.createTableTipo();
+          movimientosController.createTableMovimientos();
+          pokemonController.createTablePokemon();
+          break;
 
-        System.out.println("1!!");
-        try {
-
-          List<Author> authors = authorController.readAuthorsFile("src/main/resources/autors.txt");
-          List<Magazine> magazines = articleController.readArticlesFile("src/main/resources/articles.txt", "src/main/resources/revistes.txt", "src/main/resources/autors.txt");
-          List<Article> articles = articleController.readArticlesFile("src/main/resources/articles.txt", "src/main/resources/autors.txt");
-
-          System.out.println("Revistes llegides des del fitxer");
-          for (int i = 0; i < magazines.size(); i++) {
-            System.out.println(magazines.get(i).toString()+"\n");
-            for (int j = 0; j < magazines.get(i).getArticles().size(); j++) {
-              Author author = magazines.get(i).getArticles().get(j).getAuthor();
-              authorController.addAuthor(author);
-
-              System.out.println("EL AUTOR:");
-              System.out.println(author);
-
-              Article article = magazines.get(i).getArticles().get(j);
-              article.setAuthor(author);
-
-              System.out.println("EL ARTICLE:");
-              System.out.println(article);
-
-              articleController.addArticle(article);
-            }
-
-            magazineController.addMagazine(magazines.get(i));
+        case 2:
+          List<Tipo> tipos = tipoController.readTiposFile("src/main/resources/pokemon.csv");
+          for (Tipo tp:tipos) {
+            tipoController.addTipo(tp);
           }
-        } catch (NumberFormatException | IOException e) {
+          List<Movimientos> movimientos = movimientosController.readMovimientosFile("src/main/resources/caracteristicas_pokemon.csv");
+          for (Movimientos mv:movimientos) {
+            movimientosController.addMovimiento(mv);
+          }
+          List<Pokemon> pokemons = pokemonController.readPokemonsFile("src/main/resources/caracteristicas_pokemon.csv");
+          for (Pokemon pk:pokemons) {
+            pokemonController.addPokemon(pk);
+            break;
+          }
 
-          e.printStackTrace();
-        }
-        break;
+        case 3:
+          pokemonController.listPokemon();
+          break;
 
-      default:
-        System.out.println("Adeu!!");
-        System.exit(1);
-        break;
+        case 4:
+          tipoController.listTipo();
+          break;
 
+        case 5:
+          movimientosController.listMovimientos();
+          break;
+
+        case 6:
+          pokemonController.orderPokemonsByName();
+          break;
+
+        case 7:
+          System.out.println("Que movimiento quieres buscar?");
+          String movimiento = scanner.nextLine();
+
+          try{
+            movimientosController.listMovimientoByName(movimiento);
+          } catch (Exception e){
+            System.out.println("El movimiento que estas buscando no existe");
+          }
+          break;
+
+        case 8:
+          try{
+            pokemonController.dropTablePokemon();
+            tipoController.dropTableTipo();
+            movimientosController.dropTableMovimientos();
+          } catch (Exception e){
+            System.out.println("Alguna tabla que quieres borrar no existe");
+          }
+          break;
+
+        case 0:
+          System.out.println("Adeu!!");
+          salirMenu = true;
+      }
     }
   }
 }

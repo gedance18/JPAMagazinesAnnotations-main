@@ -1,10 +1,12 @@
 package controller;
 
+import model.Movimientos;
 import model.Pokemon;
 import model.Tipo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class TipoController {
         String linea = "";
         while ((linea = br.readLine()) != null) {
             StringTokenizer str = new StringTokenizer(linea, ",");
-            id_tipo = Integer.parseInt(str.nextToken());
+            id_tipo = Integer.parseInt(str.nextToken().replace("\"", ""));
             str.nextToken();
             nombre_tipo = str.nextToken();
 
@@ -43,6 +45,36 @@ public class TipoController {
         }
         br.close();
         return tipoList;
+    }
+
+    public void listTipo() {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        List<Tipo> result = em.createQuery("from Tipo", Tipo.class)
+                .getResultList();
+        for (Tipo tipo : result) {
+            System.out.println(tipo.toString());
+        }
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void createTableTipo(){
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPAMagazines");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.createNativeQuery(
+                "CREATE TABLE Tipo (\n" +
+                        "    Id_tipo serial NOT NULL,\n" +
+                        "    Nombre VARCHAR(4000),\n" +
+                        "    CONSTRAINT pk_tipo PRIMARY KEY (Id_tipo)\n" +
+                        ");"
+        ).executeUpdate();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
     }
 
     public void deleteTipo(Integer id_pokemon_tipo) {
@@ -69,5 +101,15 @@ public class TipoController {
         em.merge(tipo);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public void dropTableTipo() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPAMagazines");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.createNativeQuery("DROP TABLE Tipo").executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
     }
 }

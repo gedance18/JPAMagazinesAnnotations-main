@@ -5,10 +5,10 @@ import java.io.Serializable;
 
 @Entity
 @Access(AccessType.FIELD)
-@Table(name = "movimientos")
+@Table(name = "Movimientos")
 public class Movimientos implements Serializable {
     @Id
-    @Column(name = "id_pokemon")
+    @Column(name = "id_movimientos")
     int id_pokemon_movimiento;
     @Column(name = "nivel")
     String nivel;

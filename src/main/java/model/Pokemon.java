@@ -8,11 +8,15 @@ import java.util.List;
 
 @Entity
 @Access(AccessType.FIELD)
-@Table(name = "pokemon")
+@Table(name = "Pokemon")
 public class Pokemon implements Serializable{
     @Id
     @Column(name = "id_pokemon")
     private int id_pokemon;
+    @Column(name = "id_movimientos")
+    private int id_movimientos;
+    @Column(name = "id_tipo")
+    private int id_tipo;
     @Column(name = "nombre", length = 4000)
     private String nombre;
     @Column(name = "categoría", length = 4000)
@@ -35,11 +39,12 @@ public class Pokemon implements Serializable{
     @JoinColumn(name = "Id_movimientos", referencedColumnName = "Id_movimientos")
     private List<Movimientos> movimientos = new ArrayList<Movimientos>();
 
-    public Pokemon(int id_pokemon, String nombre, String categoria, String habilidad,
-                   String peso, String altura, String generacion,
-                   String evoluciones) {
-        super();
+    public Pokemon(int id_pokemon, int id_movimientos, int id_tipo, String nombre, String categoria,
+                   String habilidad, String peso, String altura, String generacion, String evoluciones) {
+
         this.id_pokemon = id_pokemon;
+        this.id_movimientos = id_movimientos;
+        this.id_tipo = id_tipo;
         this.nombre = nombre;
         this.categoria = categoria;
         this.habilidad = habilidad;
@@ -117,10 +122,44 @@ public class Pokemon implements Serializable{
         this.evoluciones = evoluciones;
     }
 
+    public List<Tipo> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<Tipo> tipos) {
+        this.tipos = tipos;
+    }
+
+    public List<Movimientos> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<Movimientos> movimientos) {
+        this.movimientos = movimientos;
+    }
+
+    public int getId_movimientos() {
+        return id_movimientos;
+    }
+
+    public void setId_movimientos(int id_movimientos) {
+        this.id_movimientos = id_movimientos;
+    }
+
+    public int getId_tipo() {
+        return id_tipo;
+    }
+
+    public void setId_tipo(int id_tipo) {
+        this.id_tipo = id_tipo;
+    }
+
     @Override
     public String toString() {
         return "Pokemon{" +
                 "id_pokemon=" + id_pokemon +
+                ", id_movimientos=" + id_movimientos +
+                ", id_tipo=" + id_tipo +
                 ", nombre='" + nombre + '\'' +
                 ", categoria='" + categoria + '\'' +
                 ", habilidad='" + habilidad + '\'' +
